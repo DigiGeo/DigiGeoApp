@@ -182,7 +182,7 @@ jobs:
           command: mkdir firebase
       - run:
           name: Download instrumented test results from Firebase Test Lab
-          command: gsutil -m cp -r -U "`gsutil ls gs:test-lab-j9j19qzfd123i-n8s9h2kjfi43c/26d43c84009196527409a5d3cf6acb9d08111a4f  | tail -1`*" /root/workspace/firebase/
+          command: gsutil -m cp -r -U " gsutil ls gs:test-lab-j9j19qzfd123i-n8s9h2kjfi43c/${CIRCLE_SHA1} /root/workspace/firebase/
       - *persist_firebase_workspace
       - store_artifacts:
           path: firebase/
@@ -202,7 +202,7 @@ jobs:
       - *attach_firebase_workspace
       - run:
           name: Move Firebase coverage report
-          command: mkdir -p app/build/outputs/code-coverage/connected && cp  firebase/Nexus6P-27-en_US-portrait/artifacts/coverage.ec app/build/outputs/code-coverage/connected/coverage.ec
+          command: mkdir -p app/build/outputs/code-coverage/connected && cp firebase/${CIRCLE_SHA1}/Nexus6P-27-en_US-portrait/artifacts/coverage.ec app/build/outputs/code-coverage/connected/coverage.ec
       - *export_gservices_key
       - *decode_gservices_key
       - run:
