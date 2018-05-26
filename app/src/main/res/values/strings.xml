@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DigiGeo</string>
+    <string name="map">Map</string>
+    <string name="cache">Cache</string>
+    <string name="blank">Blank</string>
+    <string name="cache_info_will_go_here">Cache Info Will Go Here</string>
+    <string name="extra_fragment_i_couldnt_find_our_mockup">Extra Fragment I Couldnt Find Our MockUp</string>
 </resources>
