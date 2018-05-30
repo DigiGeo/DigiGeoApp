@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 public class Cache extends Fragment {
     public Cache() {
         // Required empty public constructor
+        // create cache list based on number of clicked maps
     }
 
     @Override
