@@ -20,7 +20,8 @@ public interface CacheDao {
     @Query("SELECT * FROM Cache WHERE id = :id")
     List<org.digigeo.digigeo.Entity.Cache> getCacheById(int id);
 
-    @Update void updateCachew(org.digigeo.digigeo.Entity.Cache... caches);
+    @Update
+    void updateCachew(org.digigeo.digigeo.Entity.Cache... caches);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(org.digigeo.digigeo.Entity.Cache... caches);

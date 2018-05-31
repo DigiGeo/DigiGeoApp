@@ -48,15 +48,15 @@ public class CacheList extends Fragment {
         public Button Open;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.cache_card,parent,false));
+            super(inflater.inflate(R.layout.cache_card, parent, false));
             CacheName = itemView.findViewById(R.id.cardCacheName);
             Latitude = itemView.findViewById(R.id.cardLatitude);
             Longitude = itemView.findViewById(R.id.cardLongitude);
             Open = itemView.findViewById(R.id.openCache);
 
             Open.setOnClickListener(v -> {
-            Context context = v.getContext();
-            CharSequence text = "This Will open Cache fragment for" + CacheName.getText();
+                Context context = v.getContext();
+                CharSequence text = "This Will open Cache fragment for" + CacheName.getText();
 
                 Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
                 toast.show();
@@ -66,7 +66,7 @@ public class CacheList extends Fragment {
 
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-        private static  int length;
+        private static int length;
         private ArrayList<org.digigeo.digigeo.Entity.Cache> myCaches;
 
         public ContentAdapter(Bundle Caches) {
@@ -93,17 +93,17 @@ public class CacheList extends Fragment {
         }
     }
 
-    private static class GetCaches extends AsyncTask<Void,Void, List<org.digigeo.digigeo.Entity.Cache>> {
+    private static class GetCaches extends AsyncTask<Void, Void, List<org.digigeo.digigeo.Entity.Cache>> {
         private WeakReference<Fragment> weakFragment;
 
-        GetCaches(Fragment fragment){
+        GetCaches(Fragment fragment) {
             weakFragment = new WeakReference<>(fragment);
         }
 
         @Override
-        protected List<org.digigeo.digigeo.Entity.Cache> doInBackground(Void... voids){
+        protected List<org.digigeo.digigeo.Entity.Cache> doInBackground(Void... voids) {
             Fragment fragment = weakFragment.get();
-            if(fragment == null){
+            if (fragment == null) {
                 return null;
             }
 
@@ -116,17 +116,17 @@ public class CacheList extends Fragment {
         }
 
         @Override
-        protected  void onPostExecute(List<org.digigeo.digigeo.Entity.Cache> caches){
+        protected void onPostExecute(List<org.digigeo.digigeo.Entity.Cache> caches) {
             CacheList fragment = (CacheList) weakFragment.get();
             ArrayList<org.digigeo.digigeo.Entity.Cache> myCaches = new ArrayList<>();
             Bundle bundle = new Bundle();
 
 
-            if(caches == null || fragment == null) {
+            if (caches == null || fragment == null) {
                 return;
             }
 
-            for(int i = 0; i < caches.size(); i++) {
+            for (int i = 0; i < caches.size(); i++) {
                 myCaches.add(caches.get(i));
             }
 

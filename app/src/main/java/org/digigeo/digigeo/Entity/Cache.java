@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 @Entity
 public class Cache implements Parcelable {
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
 
@@ -28,7 +28,7 @@ public class Cache implements Parcelable {
     private String content;
 
     @Ignore
-    public Cache(String name, double latitude, double longitude, String content ){
+    public Cache(String name, double latitude, double longitude, String content) {
 
         this.name = name;
         this.latitude = latitude;
@@ -36,11 +36,13 @@ public class Cache implements Parcelable {
         this.content = content;
     }
 
-    public Cache(){
+    public Cache() {
         //empty constructor for parcelable
     }
 
-    public void setId(@NonNull int id) { this.id = id; }
+    public void setId(@NonNull int id) {
+        this.id = id;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -107,11 +109,11 @@ public class Cache implements Parcelable {
     }
 
     public static Cache[] populateData() {
-        return new Cache[] {
-                new Cache("test1",47.6992,-122.3334,"North Seattle College is pretty cool I guess."),
-                new Cache("test2",47.6062,-122.3321,"Downtown seattle has so much construction."),
-                new Cache("test3",47.2529,-122.4443,"Tacoma may smell bad by the interstate, but has some great neighborhoods on the north end."),
-                new Cache("test4",47.6101,-122.2015,"Bellevue only exists to make peoples commutes a headache on the east side.")
+        return new Cache[]{
+                new Cache("test1", 47.6992, -122.3334, "North Seattle College is pretty cool I guess."),
+                new Cache("test2", 47.6062, -122.3321, "Downtown seattle has so much construction."),
+                new Cache("test3", 47.2529, -122.4443, "Tacoma may smell bad by the interstate, but has some great neighborhoods on the north end."),
+                new Cache("test4", 47.6101, -122.2015, "Bellevue only exists to make peoples commutes a headache on the east side.")
         };
     }
 }
