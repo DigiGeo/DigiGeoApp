@@ -22,14 +22,6 @@ public class InstrumentedTests {
             new ActivityTestRule<>(main.class, true, true);
 
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("org.digigeo.digigeo", appContext.getPackageName());
-    }
-
-    @Test
     public void moveThroughTabs() {
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         onView(withId(R.id.viewpager)).perform(swipeLeft());
