@@ -2,7 +2,11 @@
     <string name="app_name">DigiGeo</string>
     <string name="map">Map</string>
     <string name="cache">Cache</string>
-    <string name="blank">Blank</string>
+    <string name="create">Create Cache</string>
     <string name="cache_info_will_go_here">Cache Info Will Go Here</string>
-    <string name="extra_fragment_i_couldnt_find_our_mockup">Extra Fragment I Couldnt Find Our MockUp</string>
+    <string name="cache_name">Cache Name</string>
+    <string name="cache_contents">Cache Contents</string>
+    <string name="submit">Submit</string>
+    <string name="description_of_the_cache">[HERE IS WHERE THE DESCRIPTION OF THE CACHE WILL GO. I THINK THERE WILL BE A BUNCH OF INFORMATION HERE.]</string>
+    <string name="text_goes_here">[TEXT GOES HERE]</string>
 </resources>
