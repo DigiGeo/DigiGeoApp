@@ -6,12 +6,13 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.support.annotation.NonNull;
+
 import java.util.concurrent.Executors;
 
 import org.digigeo.digigeo.Entity.Cache;
 
 @Database(entities = {Cache.class}, version = 1, exportSchema = false)
-public abstract class AppDb extends RoomDatabase{
+public abstract class AppDb extends RoomDatabase {
 
     private static AppDb INSTANCE;
 
