@@ -14,6 +14,7 @@ public class CreateCache extends Fragment {
     private EditText cacheContents;
     private Button submit;
 
+    //TODO add room and sqlite database?
 
     public CreateCache() {
         // Required empty public constructor
