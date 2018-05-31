@@ -24,10 +24,10 @@ public class FragAdapter extends FragmentPagerAdapter {
             return new Map();
         }
         else if (position == 1){
-            return new Cache();
+            return new CacheList();
         }
         else {
-            return new CreateCache();
+            return new Create();
         }
 
     }
@@ -44,11 +44,11 @@ public class FragAdapter extends FragmentPagerAdapter {
         // title based on item position
         switch (position) {
             case 0:
-               return "Map";
+                return "Map";
             case 1:
-                return "Cache";
+                return "List";
             case 2:
-                return mContext.getString(R.string.create);
+                return "Create";
             default:
                 return null;
         }

@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Cache extends Fragment {
+public class Create extends Fragment {
 
     private EditText cacheName;
     private EditText cacheContents;
     private Button submit;
 
-    public Cache() {
+    public Create() {
         // Required empty public constructor
     }
 
