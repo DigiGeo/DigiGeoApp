@@ -19,7 +19,7 @@
         </activity>
         <!--Place maps key here-->
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
+            android:name="com.google.android.geo.AIzaSyDgLKgd56-96CU298vv6P1URJfNdc67HVE"
             android:value="" />
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
