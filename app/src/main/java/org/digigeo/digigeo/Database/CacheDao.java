@@ -21,7 +21,7 @@ public interface CacheDao {
     List<org.digigeo.digigeo.Entity.Cache> getCacheById(int id);
 
     @Update
-    void updateCachew(org.digigeo.digigeo.Entity.Cache... caches);
+    void updateCache(org.digigeo.digigeo.Entity.Cache... caches);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(org.digigeo.digigeo.Entity.Cache... caches);
