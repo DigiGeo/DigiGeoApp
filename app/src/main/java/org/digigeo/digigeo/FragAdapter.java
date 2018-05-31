@@ -44,7 +44,7 @@ public class FragAdapter extends FragmentPagerAdapter {
         // title based on item position
         switch (position) {
             case 0:
-               return "Map";
+                return "Map";
             case 1:
                 return "List";
             case 2:
