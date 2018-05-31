@@ -24,10 +24,10 @@ public class FragAdapter extends FragmentPagerAdapter {
             return new Map();
         }
         else if (position == 1){
-            return new Cache();
+            return new CacheList();
         }
         else {
-            return new BlankFragment();
+            return new Create();
         }
 
     }
@@ -46,9 +46,9 @@ public class FragAdapter extends FragmentPagerAdapter {
             case 0:
                return "Map";
             case 1:
-                return "Cache";
+                return "List";
             case 2:
-                return mContext.getString(R.string.blank);
+                return "Create";
             default:
                 return null;
         }
