@@ -133,7 +133,6 @@ public class CacheList extends Fragment {
             bundle.putParcelableArrayList("myCaches", myCaches);
             ContentAdapter adapter = new ContentAdapter(bundle);
             fragment.recyclerView.setAdapter(adapter);
-
             fragment.recyclerView.setHasFixedSize(true);
             fragment.recyclerView.setLayoutManager(new LinearLayoutManager(fragment.getActivity()));
         }
