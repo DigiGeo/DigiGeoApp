@@ -5,16 +5,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class Cache extends Fragment {
+
+    private EditText cacheName;
+    private EditText cacheContents;
+    private Button submit;
+
+    //TODO add room and sqlite database?
+
     public Cache() {
         // Required empty public constructor
-        // create cache list based on number of clicked maps
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_cache, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_create, container, false);
+
+        cacheName = rootView.findViewById(R.id.cacheName);
+        cacheContents = rootView.findViewById(R.id.cacheContent);
+        submit = rootView.findViewById(R.id.submitBtn);
+
         return rootView;
     }
+
 }
