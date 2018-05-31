@@ -2,6 +2,7 @@ package org.digigeo.digigeo.Entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -25,6 +26,21 @@ public class Cache implements Parcelable {
 
     @ColumnInfo(name = "content")
     private String content;
+
+    @Ignore
+    public Cache(String name, double latitude, double longitude, String content ){
+
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.content = content;
+    }
+
+    public Cache(){
+        //empty constructor for parcelable
+    }
+
+    public void setId(@NonNull int id) { this.id = id; }
 
     public void setName(String name) {
         this.name = name;
@@ -88,5 +104,14 @@ public class Cache implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public static Cache[] populateData() {
+        return new Cache[] {
+                new Cache("test1",47.6992,-122.3334,"North Seattle College is pretty cool I guess."),
+                new Cache("test2",47.6062,-122.3321,"Downtown seattle has so much construction."),
+                new Cache("test3",47.2529,-122.4443,"Tacoma may smell bad by the interstate, but has some great neighborhoods on the north end."),
+                new Cache("test4",47.6101,-122.2015,"Bellevue only exists to make peoples commutes a headache on the east side.")
+        };
     }
 }

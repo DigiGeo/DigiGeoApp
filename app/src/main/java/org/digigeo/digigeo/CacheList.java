@@ -1,15 +1,12 @@
 package org.digigeo.digigeo;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.constraint.solver.Cache;
-import android.support.v4.app.ActivityCompat;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +15,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.digigeo.digigeo.Database.AppDb;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CacheList extends Fragment {
+
+    RecyclerView recyclerView;
+
     public CacheList() {
         // Required empty public constructor
     }
@@ -29,10 +33,10 @@ public class CacheList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_cache, container, false);
+        recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_cache, container, false);
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        new GetCaches(this).execute();
+
         return recyclerView;
     }
 
@@ -67,7 +71,7 @@ public class CacheList extends Fragment {
 
         public ContentAdapter(Bundle Caches) {
 
-            myCaches = Caches.getParcelableArrayList("matches");
+            myCaches = Caches.getParcelableArrayList("myCaches");
             length = myCaches.size();
         }
 
@@ -78,14 +82,60 @@ public class CacheList extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.CacheName.setText("TEST NAME PLEASE IGNORE");
-            holder.Latitude.setText("47.606209");
-            holder.Longitude.setText("-122.332071");
+            holder.CacheName.setText(myCaches.get(position).getName());
+            holder.Latitude.setText(String.valueOf(myCaches.get(position).getLatitude()));
+            holder.Longitude.setText(String.valueOf(myCaches.get(position).getName()));
         }
 
         @Override
         public int getItemCount() {
             return length;
+        }
+    }
+
+    private static class GetCaches extends AsyncTask<Void,Void, List<org.digigeo.digigeo.Entity.Cache>> {
+        private WeakReference<Fragment> weakFragment;
+
+        GetCaches(Fragment fragment){
+            weakFragment = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected List<org.digigeo.digigeo.Entity.Cache> doInBackground(Void... voids){
+            Fragment fragment = weakFragment.get();
+            if(fragment == null){
+                return null;
+            }
+
+            AppDb db = AppDb.getInstance(fragment.getContext());
+
+            List<org.digigeo.digigeo.Entity.Cache> caches = db.cacheDao().getMyCaches();
+
+            return caches;
+
+        }
+
+        @Override
+        protected  void onPostExecute(List<org.digigeo.digigeo.Entity.Cache> caches){
+            CacheList fragment = (CacheList) weakFragment.get();
+            ArrayList<org.digigeo.digigeo.Entity.Cache> myCaches = new ArrayList<>();
+            Bundle bundle = new Bundle();
+
+
+            if(caches == null || fragment == null) {
+                return;
+            }
+
+            for(int i = 0; i < caches.size(); i++) {
+                myCaches.add(caches.get(i));
+            }
+
+            bundle.putParcelableArrayList("myCaches", myCaches);
+            ContentAdapter adapter = new ContentAdapter(bundle);
+            fragment.recyclerView.setAdapter(adapter);
+
+            fragment.recyclerView.setHasFixedSize(true);
+            fragment.recyclerView.setLayoutManager(new LinearLayoutManager(fragment.getActivity()));
         }
     }
 }
