@@ -8,6 +8,7 @@ public class CacheObj {
     private double longitude;
 
     public CacheObj(String name, String content, double latitude, double longitude) {
+        
         this.name = name;
         this.content = content;
         this.latitude = latitude;
