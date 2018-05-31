@@ -22,9 +22,9 @@ public class Create extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_create, container, false);
 
-        cacheName = rootView.findViewById(R.id.cacheName);
-        cacheContents = rootView.findViewById(R.id.cacheContent);
-        submit = rootView.findViewById(R.id.submitBtn);
+        //cacheName = rootView.findViewById(R.id.cacheName);
+        //cacheContents = rootView.findViewById(R.id.cacheContent);
+        //submit = rootView.findViewById(R.id.submitBtn);
 
         return rootView;
     }

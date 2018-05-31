@@ -84,7 +84,7 @@ public class CacheList extends Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.CacheName.setText(myCaches.get(position).getName());
             holder.Latitude.setText(String.valueOf(myCaches.get(position).getLatitude()));
-            holder.Longitude.setText(String.valueOf(myCaches.get(position).getName()));
+            holder.Longitude.setText(String.valueOf(myCaches.get(position).getLongitude()));
         }
 
         @Override
