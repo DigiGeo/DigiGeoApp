@@ -27,7 +27,7 @@ public class FragAdapter extends FragmentPagerAdapter {
             return new Cache();
         }
         else {
-            return new BlankFragment();
+            return new CreateCache();
         }
 
     }
@@ -48,7 +48,7 @@ public class FragAdapter extends FragmentPagerAdapter {
             case 1:
                 return "Cache";
             case 2:
-                return mContext.getString(R.string.blank);
+                return mContext.getString(R.string.create);
             default:
                 return null;
         }
