@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BlankFragment extends Fragment {
-    public BlankFragment() {
+public class Create extends Fragment {
+    public Create() {
         // Required empty public constructor
     }
 

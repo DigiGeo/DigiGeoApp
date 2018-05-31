@@ -27,7 +27,7 @@ public class FragAdapter extends FragmentPagerAdapter {
             return new Cache();
         }
         else {
-            return new BlankFragment();
+            return new Create();
         }
 
     }
