@@ -2,6 +2,7 @@ package org.digigeo.digigeo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.rule.ActivityTestRule;
 
@@ -27,5 +28,11 @@ public class InstrumentedTests {
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         onView(withId(R.id.viewpager)).perform(swipeRight());
         onView(withId(R.id.viewpager)).perform(swipeRight());
+    }
+
+    @Test
+    public void clickOpen() {
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.my_recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(0, TestUtils.clickChildViewWithId(R.id.openCache)));
     }
 }
