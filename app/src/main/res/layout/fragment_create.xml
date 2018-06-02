@@ -11,6 +11,8 @@
         android:id="@+id/cacheName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="@string/cache_name"
         android:paddingTop="30dp"
         android:paddingBottom="10dp"
@@ -25,7 +27,6 @@
         android:layout_marginStart="110dp"
         android:layout_marginLeft="110dp"
         android:paddingBottom="10dp"
-        android:gravity="center"
         android:hint="@string/enter_cache_name"
         android:background="@layout/my_edit_text_border" />
 
@@ -33,6 +34,8 @@
         android:id="@+id/cacheContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="@string/cache_contents"
         android:layout_below="@+id/editCacheName"
         android:paddingTop="30dp"

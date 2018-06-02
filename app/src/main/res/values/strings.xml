@@ -6,7 +6,7 @@
     <string name="cache_info_will_go_here">Cache Info Will Go Here</string>
     <string name="cache_name">Cache Name</string>
     <string name="cache_contents">Cache Contents</string>
-    <string name="submit">Submit</string>
+    <string name="submit">Create Cache</string>
     <string name="enter_cache_name">Enter Cache Name…</string>
     <string name="enter_cache_contents">Enter Cache Contents…</string>
 </resources>
