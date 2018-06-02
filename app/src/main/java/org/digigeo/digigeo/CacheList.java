@@ -30,6 +30,11 @@ public class CacheList extends Fragment {
         // Required empty public constructor
     }
 
+
+
+    /*
+        Overridden lifecycle functions
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +43,16 @@ public class CacheList extends Fragment {
         new GetCaches(this).execute();
 
         return recyclerView;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+
+            new GetCaches(this).execute();
+
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -95,6 +110,7 @@ public class CacheList extends Fragment {
     }
 
     private static class GetCaches extends AsyncTask<Void, Void, List<org.digigeo.digigeo.Entity.Cache>> {
+
         private WeakReference<Fragment> weakFragment;
 
         GetCaches(Fragment fragment) {
