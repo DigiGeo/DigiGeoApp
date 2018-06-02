@@ -56,6 +56,7 @@ public class CacheList extends Fragment {
 
             Open.setOnClickListener(v -> {
                 Context context = v.getContext();
+
                 CharSequence text = "This Will open Cache fragment for " + CacheName.getText();
 
                 Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
