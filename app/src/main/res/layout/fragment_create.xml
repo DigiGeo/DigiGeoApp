@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#eeeee0"
     tools:context=".Create">
 
     <TextView
         android:id="@+id/cacheName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="@string/cache_name"
         android:paddingTop="30dp"
         android:paddingBottom="10dp"
@@ -24,14 +28,15 @@
         android:layout_marginStart="110dp"
         android:layout_marginLeft="110dp"
         android:paddingBottom="10dp"
-        android:gravity="center"
-        android:text="@string/text_goes_here"
+        android:hint="@string/enter_cache_name"
         android:background="@layout/my_edit_text_border" />
 
     <TextView
         android:id="@+id/cacheContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="@string/cache_contents"
         android:layout_below="@+id/editCacheName"
         android:paddingTop="30dp"
@@ -48,7 +53,7 @@
         android:layout_marginLeft="110dp"
         android:paddingBottom="10dp"
         android:gravity="top"
-        android:text="@string/description_of_the_cache"
+        android:hint="@string/enter_cache_contents"
         android:background="@layout/my_edit_text_border" />
 
     <Button
