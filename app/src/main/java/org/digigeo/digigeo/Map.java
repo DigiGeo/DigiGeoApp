@@ -68,7 +68,9 @@ public class Map extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        //enabling zoom controls and gestures
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
         locationManager = (LocationManager) this.getContext().getSystemService(this.getContext().LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             showAlertPhone();
@@ -128,16 +130,6 @@ public class Map extends Fragment implements OnMapReadyCallback {
                             cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
                             mMap.animateCamera(cameraUpdate);
                         }
-
-                        //listener and click event for removing markers
-                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                            @Override
-                            public boolean onMarkerClick(Marker marker) {
-                                //leave commented out for now until we figure out what we are doing
-                               // marker.remove();
-                                return true;
-                            }
-                        });
                     }
                 }
             }
@@ -215,9 +207,21 @@ public class Map extends Fragment implements OnMapReadyCallback {
                 Bitmap markerBitmap = BitmapFactory.decodeResource(fragment.getResources(), R.drawable.marker_image);
                 markerBitmap = scaleBitmap(markerBitmap, 85, 85);
                 MarkerOptions marker = new MarkerOptions().position(
-                        new LatLng(caches.get(i).getLatitude(), caches.get(i).getLongitude())).title("Cache");
+                        new LatLng(caches.get(i).getLatitude(), caches.get(i).getLongitude())).title(caches.get(i).getName()).snippet(caches.get(i).getContent());
                 marker.icon(BitmapDescriptorFactory.fromBitmap(markerBitmap));
                 fragment.mMap.addMarker(marker);
+
+                //listener and click event for displaying markers info
+                fragment.mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        //leave commented out for now until we figure out what we are doing
+                        //marker.remove();
+                        marker.showInfoWindow();
+
+                        return true;
+                    }
+                });
             }
 
         }
