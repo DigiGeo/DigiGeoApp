@@ -29,6 +29,7 @@ import org.digigeo.digigeo.Database.CacheDao;
 import org.digigeo.digigeo.Entity.Cache;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.util.Objects;
 
 import static java.security.Security.getProvider;
@@ -72,8 +73,7 @@ public class Create extends Fragment {
                     cache.setLatitude(lat);
                     cache.setLongitude(lon);
 
-                    Toast.makeText(rootView.getContext(), "Cache created!", Toast.LENGTH_SHORT).show();
-
+                    new SetCacheTask(getActivity(),cache).execute();
                     editCacheName.setText("");
                     editCacheContent.setText("");
 
@@ -125,12 +125,16 @@ public class Create extends Fragment {
             if (activity == null) {
                 return null;
             }
-
             AppDb db = AppDb.getInstance(activity.getApplicationContext());
-
             db.cacheDao().insertAll(cache);
-
             return cache;
         }
-    }
+
+        @Override
+        protected void onPostExecute(Cache caches) {
+           // Log.i("my post execute",caches.getName());
+            Toast.makeText(weakActivity.get().getApplicationContext(), "Cache created!", Toast.LENGTH_SHORT).show();
+         }
+}
+
 }
