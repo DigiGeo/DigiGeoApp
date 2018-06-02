@@ -19,7 +19,7 @@
 
             <stroke
                 android:width="2dp"
-                android:color="#949494" />
+                android:color="#0000cd" />
         </shape>
     </item>
 </selector>
