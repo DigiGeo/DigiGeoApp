@@ -133,7 +133,7 @@ public class Create extends Fragment {
         @Override
         protected void onPostExecute(Cache caches) {
            // Log.i("my post execute",caches.getName());
-            Toast.makeText(weakActivity.get().getApplicationContext(), "Cache created!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(weakActivity.get().getApplicationContext(), R.string.cache_created, Toast.LENGTH_SHORT).show();
          }
 }
 
