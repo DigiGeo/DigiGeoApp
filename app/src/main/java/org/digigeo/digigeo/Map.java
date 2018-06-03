@@ -11,13 +11,11 @@ import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +36,6 @@ import org.digigeo.digigeo.Database.AppDb;
 import org.digigeo.digigeo.Entity.Cache;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Map extends Fragment implements OnMapReadyCallback {
@@ -80,7 +77,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
             // Check Permissions Now
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 100, locationListenerNetwork);
+          //  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 100, locationListenerNetwork); //no longer zooming to location.  closer to production code
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             mMap.setMyLocationEnabled(true);
             if (location != null) {
@@ -89,6 +86,8 @@ public class Map extends Fragment implements OnMapReadyCallback {
                 myPosition = new LatLng(latitude, longitude);
                 cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
                 mMap.animateCamera(cameraUpdate);
+                new GetCaches(Map.this).execute();
+
             }
         }
     }
@@ -119,8 +118,8 @@ public class Map extends Fragment implements OnMapReadyCallback {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 100, locationListenerNetwork);
+                    if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+                      //  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 100, locationListenerNetwork); // no longer zooming to mylocation closer to production code
                         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                         mMap.setMyLocationEnabled(true);
                         if (location != null) {
@@ -129,6 +128,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
                             myPosition = new LatLng(latitude, longitude);
                             cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
                             mMap.animateCamera(cameraUpdate);
+                            new GetCaches(Map.this).execute();
                         }
                     }
                 }
@@ -138,11 +138,21 @@ public class Map extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    //updating the map on resume
     @Override
     public void onResume(){
         mapFragment.getMapAsync(this);
         super.onResume();
     }
+
+    //clearing the map on pause
+    @Override
+    public void onPause()
+    {
+        mMap.clear();
+        super.onPause();
+    }
+
 
     private void showAlertPhone() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
@@ -156,16 +166,14 @@ public class Map extends Fragment implements OnMapReadyCallback {
         dialog.show();
     }
 
-    private final LocationListener locationListenerNetwork = new LocationListener() {
+ /*   private final LocationListener locationListenerNetwork = new LocationListener() {
         public void onLocationChanged(Location location) {
-                longitude = location.getLongitude();
-                latitude = location.getLatitude();
-                myPosition = new LatLng(latitude, longitude);
-                cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
-                mMap.animateCamera(cameraUpdate);
-                //look for new caches that may have been created every time we update our location
-                new GetCaches(Map.this).execute();
-            }
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            myPosition = new LatLng(latitude, longitude);
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
+            mMap.animateCamera(cameraUpdate);
+        }
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {}
@@ -175,7 +183,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
 
         @Override
         public void onProviderDisabled(String s) {}
-        };
+        };*/
 
     private static class GetCaches extends AsyncTask<Void, Void, List<Cache>> {
         private WeakReference<Fragment> weakFragment;
@@ -204,7 +212,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
             }
             //Log.i("in post execute",caches.toString());
             for (int i = 0; i < caches.size(); i++) {
-                Bitmap markerBitmap = BitmapFactory.decodeResource(fragment.getResources(), R.drawable.marker_image);
+                Bitmap markerBitmap = BitmapFactory.decodeResource(fragment.getContext().getResources(), R.drawable.marker_image);
                 markerBitmap = scaleBitmap(markerBitmap, 85, 85);
                 MarkerOptions marker = new MarkerOptions().position(
                         new LatLng(caches.get(i).getLatitude(), caches.get(i).getLongitude())).title(caches.get(i).getName()).snippet(caches.get(i).getContent());
@@ -215,16 +223,15 @@ public class Map extends Fragment implements OnMapReadyCallback {
                 fragment.mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        //leave commented out for now until we figure out what we are doing
-                        //marker.remove();
                         marker.showInfoWindow();
-
                         return true;
                     }
                 });
             }
 
         }
+
+
     }
 
 
