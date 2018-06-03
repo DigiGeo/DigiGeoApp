@@ -105,10 +105,6 @@ public class CacheList extends Fragment {
                         else {
                             OpenFail.setText(R.string.openFail);
                         }
-
-
-
-
                     }
             });
         }
