@@ -11,4 +11,5 @@
     <string name="openFail">Not close enough to open</string>
     <string name="map">Map</string>
     <string name="list">List</string>
+    <string name="cache_created">Cache created!</string>
 </resources>
