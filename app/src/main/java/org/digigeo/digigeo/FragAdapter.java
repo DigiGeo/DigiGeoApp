@@ -44,11 +44,11 @@ public class FragAdapter extends FragmentPagerAdapter {
         // title based on item position
         switch (position) {
             case 0:
-                return "Map";
+                return mContext.getString(R.string.map);
             case 1:
-                return "List";
+                return mContext.getString(R.string.list);
             case 2:
-                return "Create";
+                return mContext.getString(R.string.create);
             default:
                 return null;
         }
