@@ -9,4 +9,5 @@
     <string name="submit">Create Cache</string>
     <string name="enter_cache_name">Enter Cache Name…</string>
     <string name="enter_cache_contents">Enter Cache Contents…</string>
+    <string name="openFail">Not close enough to open</string>
 </resources>

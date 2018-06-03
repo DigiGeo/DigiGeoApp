@@ -1,10 +1,14 @@
 package org.digigeo.digigeo;
 
 
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -16,15 +20,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.digigeo.digigeo.Database.AppDb;
+import org.digigeo.digigeo.Entity.Cache;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class CacheList extends Fragment {
 
     RecyclerView recyclerView;
+    public static LocationManager locationManager;
 
     public CacheList() {
         // Required empty public constructor
@@ -41,6 +48,10 @@ public class CacheList extends Fragment {
         recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_cache, container, false);
 
         new GetCaches(this).execute();
+
+        if (locationManager == null) {
+            locationManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
+        }
 
         return recyclerView;
     }
@@ -60,6 +71,8 @@ public class CacheList extends Fragment {
         public TextView CacheName;
         public TextView Latitude;
         public TextView Longitude;
+        public TextView Content;
+        public TextView OpenFail;
         public Button Open;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -68,14 +81,35 @@ public class CacheList extends Fragment {
             Latitude = itemView.findViewById(R.id.cardLatitude);
             Longitude = itemView.findViewById(R.id.cardLongitude);
             Open = itemView.findViewById(R.id.openCache);
+            Content = itemView.findViewById(R.id.cardContent);
+            OpenFail = itemView.findViewById(R.id.openFail);
+
 
             Open.setOnClickListener(v -> {
                 Context context = v.getContext();
 
-                CharSequence text = "This Will open Cache fragment for " + CacheName.getText();
+                    if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                            ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-                toast.show();
+                        double myLat = location.getLatitude();
+                        double myLon = location.getLongitude();
+                        double cacheLat = Double.parseDouble(String.valueOf(Latitude.getText()));
+                        double cacheLon = Double.parseDouble(String.valueOf(Longitude.getText()));
+
+                        if(distFrom(myLat,myLon,cacheLat,cacheLon) <= 1){
+                            OpenFail.setText("");
+                            Content.setTextColor(v.getResources().getColor(R.color.colorPrimary));
+                            Content.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            OpenFail.setText(R.string.openFail);
+                        }
+
+
+
+
+                    }
             });
         }
     }
@@ -101,6 +135,7 @@ public class CacheList extends Fragment {
             holder.CacheName.setText(myCaches.get(position).getName());
             holder.Latitude.setText(String.valueOf(myCaches.get(position).getLatitude()));
             holder.Longitude.setText(String.valueOf(myCaches.get(position).getLongitude()));
+            holder.Content.setText(String.valueOf(myCaches.get(position).getContent()));
         }
 
         @Override
@@ -153,5 +188,19 @@ public class CacheList extends Fragment {
             fragment.recyclerView.setHasFixedSize(true);
             fragment.recyclerView.setLayoutManager(new LinearLayoutManager(fragment.getActivity()));
         }
+    }
+
+    public static double distFrom(double lat1, double lng1, double lat2, double lng2) {
+        double earthRadius = 3958.75; // miles (or 6371.0 kilometers)
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLng = Math.toRadians(lng2-lng1);
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double dist = earthRadius * c;
+
+        return dist;
     }
 }
