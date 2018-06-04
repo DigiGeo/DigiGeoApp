@@ -145,14 +145,6 @@ public class Map extends Fragment implements OnMapReadyCallback {
         super.onResume();
     }
 
-    //clearing the map on pause
-    @Override
-    public void onPause()
-    {
-        mMap.clear();
-        super.onPause();
-    }
-
 
     private void showAlertPhone() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
@@ -215,7 +207,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
                 Bitmap markerBitmap = BitmapFactory.decodeResource(fragment.getContext().getResources(), R.drawable.marker_image);
                 markerBitmap = scaleBitmap(markerBitmap, 85, 85);
                 MarkerOptions marker = new MarkerOptions().position(
-                        new LatLng(caches.get(i).getLatitude(), caches.get(i).getLongitude())).title(caches.get(i).getName()).snippet(caches.get(i).getContent());
+                        new LatLng(caches.get(i).getLatitude(), caches.get(i).getLongitude())).title(caches.get(i).getName());
                 marker.icon(BitmapDescriptorFactory.fromBitmap(markerBitmap));
                 fragment.mMap.addMarker(marker);
 
