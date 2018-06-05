@@ -2,6 +2,7 @@ package org.digigeo.digigeo;
 
 import android.support.test.rule.ActivityTestRule;
 
+import org.digigeo.digigeo.Entity.Cache;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -15,6 +16,7 @@ import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.Matchers.not;
 
 
@@ -56,8 +58,14 @@ public class TestCreateCache {
                 .perform(click());
 
         onView(withText("Can't create an empty cache\nFill out the form and try again"))
-                .check(matches(isDisplayed()))
-                .inRoot(isDialog())
-                .perform(click());
+                .check(matches(isDisplayed()));
+        onView(withText("OK")).perform(click());
     }
+
+    @Test
+    public void testDescContents() {
+        Cache testCache = new Cache();
+        assertEquals(0, testCache.describeContents());
+    }
+
 }
