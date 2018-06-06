@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -106,7 +105,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
         return scaledBitmap;
     }
 
-    @Override
+ /*   @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -129,7 +128,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
             default:{
             }
         }
-    }
+    }*/
 
     //updating the map on resume
     @Override
