@@ -77,7 +77,6 @@ public class Map extends Fragment implements OnMapReadyCallback {
             // Check Permissions Now
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
-          //  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 100, locationListenerNetwork); //no longer zooming to location.  closer to production code
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             mMap.setMyLocationEnabled(true);
             if (location != null) {
@@ -119,7 +118,6 @@ public class Map extends Fragment implements OnMapReadyCallback {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
-                      //  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 100, locationListenerNetwork); // no longer zooming to mylocation closer to production code
                         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                         mMap.setMyLocationEnabled(true);
                         if (location != null) {
@@ -158,24 +156,6 @@ public class Map extends Fragment implements OnMapReadyCallback {
         dialog.show();
     }
 
- /*   private final LocationListener locationListenerNetwork = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            longitude = location.getLongitude();
-            latitude = location.getLatitude();
-            myPosition = new LatLng(latitude, longitude);
-            cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
-            mMap.animateCamera(cameraUpdate);
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {}
-
-        @Override
-        public void onProviderEnabled(String s) {}
-
-        @Override
-        public void onProviderDisabled(String s) {}
-        };*/
 
     private static class GetCaches extends AsyncTask<Void, Void, List<Cache>> {
         private WeakReference<Fragment> weakFragment;
