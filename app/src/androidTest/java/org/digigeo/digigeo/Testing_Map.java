@@ -44,6 +44,7 @@ public class Testing_Map {
         onView(withText(R.string.map)).perform(click());
     }
 
+
     @Test
     public void canCreateCacheAndFindOnMap() throws InterruptedException, UiObjectNotFoundException{
         onView(withText(R.string.map)).perform(click());
