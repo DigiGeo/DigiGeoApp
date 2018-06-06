@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -77,15 +76,19 @@ public class Map extends Fragment implements OnMapReadyCallback {
             // Check Permissions Now
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
-                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                mMap.setMyLocationEnabled(true);
+            //  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 100, locationListenerNetwork); //no longer zooming to location.  closer to production code
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            mMap.setMyLocationEnabled(true);
+            if (location != null) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
                 myPosition = new LatLng(latitude, longitude);
                 cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
                 mMap.animateCamera(cameraUpdate);
                 new GetCaches(Map.this).execute();
-                }
+
+            }
+        }
     }
 
     //rescaling bitmap based on size
@@ -106,7 +109,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
         return scaledBitmap;
     }
 
-    @Override
+ /*   @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -129,7 +132,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
             default:{
             }
         }
-    }
+    }*/
 
     //updating the map on resume
     @Override
