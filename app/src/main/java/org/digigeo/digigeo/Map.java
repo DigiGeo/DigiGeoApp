@@ -78,12 +78,14 @@ public class Map extends Fragment implements OnMapReadyCallback {
         } else {
                 Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 mMap.setMyLocationEnabled(true);
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                myPosition = new LatLng(latitude, longitude);
-                cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
-                mMap.animateCamera(cameraUpdate);
-                new GetCaches(Map.this).execute();
+                if(location != null) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    myPosition = new LatLng(latitude, longitude);
+                    cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
+                    mMap.animateCamera(cameraUpdate);
+                    new GetCaches(Map.this).execute();
+                }
                 }
     }
 
