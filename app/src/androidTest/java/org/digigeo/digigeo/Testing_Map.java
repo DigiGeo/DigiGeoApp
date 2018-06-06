@@ -44,9 +44,6 @@ public class Testing_Map {
         onView(withText(R.string.map)).perform(click());
     }
 
-    /* THIS FAILS WITH DANS KEY.  MY MAP DOESNT COME INTO VIEW USING IT BUT IT WORKS WITH MINE.  LEAVING COMMENTED OUT UNTIL WE FIGURE OUT
-    /* WHAT IS GOING ON
-    //test creating a cache, finding it on the map and clicking it
     @Test
     public void canCreateCacheAndFindOnMap() throws InterruptedException, UiObjectNotFoundException{
         onView(withText(R.string.map)).perform(click());
@@ -60,6 +57,6 @@ public class Testing_Map {
         UiDevice device = UiDevice.getInstance(getInstrumentation());
         UiObject marker = device.findObject(new UiSelector().descriptionContains("EspressoTest"));
         marker.click();
-    }*/
+    }
 
 }
