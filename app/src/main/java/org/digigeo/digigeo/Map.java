@@ -77,18 +77,15 @@ public class Map extends Fragment implements OnMapReadyCallback {
             // Check Permissions Now
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            mMap.setMyLocationEnabled(true);
-            if (location != null) {
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                mMap.setMyLocationEnabled(true);
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
                 myPosition = new LatLng(latitude, longitude);
                 cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
                 mMap.animateCamera(cameraUpdate);
                 new GetCaches(Map.this).execute();
-
-            }
-        }
+                }
     }
 
     //rescaling bitmap based on size
@@ -120,14 +117,12 @@ public class Map extends Fragment implements OnMapReadyCallback {
                     if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
                         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                         mMap.setMyLocationEnabled(true);
-                        if (location != null) {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                            myPosition = new LatLng(latitude, longitude);
-                            cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
-                            mMap.animateCamera(cameraUpdate);
-                            new GetCaches(Map.this).execute();
-                        }
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                        myPosition = new LatLng(latitude, longitude);
+                        cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 16);
+                        mMap.animateCamera(cameraUpdate);
+                        new GetCaches(Map.this).execute();
                     }
                 }
             }
@@ -166,13 +161,8 @@ public class Map extends Fragment implements OnMapReadyCallback {
         @Override
         protected List<org.digigeo.digigeo.Entity.Cache> doInBackground(Void... voids) {
             Fragment fragment = weakFragment.get();
-            if (fragment == null) {
-                return null;
-            }
-
             AppDb db = AppDb.getInstance(fragment.getContext());
             List<org.digigeo.digigeo.Entity.Cache> caches = db.cacheDao().getMyCaches();
-
             return caches;
         }
 
